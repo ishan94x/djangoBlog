@@ -28,6 +28,7 @@ class Post(models.Model):
 	created = models.DateTimeField(auto_now_add=True) #auto_now_add is used at the time of creation
 	updated = models.DateTimeField(auto_now=True) #auto_now is used while updating the created thing
 	status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='draft')
+	restrict_comment = models.BooleanField(default=False)
 
 	class Meta:
 		ordering = ['-id']

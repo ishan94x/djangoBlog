@@ -28,7 +28,7 @@
         </div>
         {% endif %}<br>
         <hr>
-        
-        {% include 'myblog/comments.html' %}
-
+        {% if not posts.restrict_comment %}
+          {% include 'myblog/comments.html' %}
+        {% endif %}
   		{% endblock %}
