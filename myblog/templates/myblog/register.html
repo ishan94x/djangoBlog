@@ -1,0 +1,10 @@
+{% extends 'myblog/base.html' %}
+
+{% block content %}
+<form method="POST">
+	{% csrf_token %}
+	{{ form.as_p}}
+	<input type="Submit" value="Register" class="btn btn-info">
+	
+</form>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'myblog/base.html' %}
+{% block title %} {{ post.title }} {% endblock %}
+{% block content %}
+	<form method="POST" enctype="multipart/form-data">
+		{% csrf_token %}
+		{{ form.as_p }}
+		{{ formset.management_form }}
+		{% for f in formset %}
+			{{ f.as_p }}
+		{% endfor %}
+		<input type="submit" value="Update" class="btn btn-primary">
+		
+	</form>
+{% endblock %}

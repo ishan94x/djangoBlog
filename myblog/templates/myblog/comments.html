@@ -1,0 +1,45 @@
+<div class="main-comment-section">
+          <div class="container-fluid mt-2">
+            <div class="form-group row">
+             {% if request.user.is_authenticated %}
+        <form method="POST" class="comment-form" action=".">
+          {% csrf_token %}
+          {{ comment_form.as_p }}
+          <input type="submit" class="btn btn-info" value="Submit">
+          
+        </form>
+        {% endif %} 
+            </div>  
+          </div>
+          {{ comments.count }} Comment{{ comments|pluralize }}<br><br>
+          {% for comment in comments %}
+
+            <blockquote class="blockquote">
+              <p class="mb-0"><small>{{ comment.content }}</small></p>
+              <footer class="blockquote-footer"><small>By-{{ comment.user| capfirst }}<cite title="Source Title"></cite></small>
+                <button type="button" class="reply-btn btn btn-outline-dark btn-sm ml-2">Reply</button>
+              </footer>
+            </blockquote>
+            <div class="replied-comments container mt-3" style="display:none;">
+              {% for reply in comment.replies.all %}
+                <blockquote class="blockquote">
+                  <p class="mb-0"><small>{{ reply.content }}</small></p>
+                  <footer class="blockquote-footer"><small>By-{{ reply.user| capfirst }}<cite title="Source Title"></cite></small></footer>
+                </blockquote>
+              {% endfor %}
+              <div class="form-group row">
+                {% if request.user.is_authenticated %}
+                  <form method="POST" class="reply-form" action=".">
+                     {% csrf_token %}
+                     <input type="hidden" name="comment_id" value="{{ comment.id }}">
+                    {{ comment_form.as_p }}
+                    <input type="submit" class="btn btn-info" value="Submit">  
+                  </form>
+                {% endif %}
+                
+              </div>
+              
+            </div>
+          {% endfor %}
+          
+        </div>
